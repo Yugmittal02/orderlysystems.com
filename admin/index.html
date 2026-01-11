@@ -5024,20 +5024,17 @@ ordersArr.forEach(order => {
             
             if (!window.fullHistoryData || window.fullHistoryData.length === 0) {
                 console.warn('[Revenue] No data available');
-                document.getElementById('rev-total').innerText = RS + '0';
-                document.getElementById('rev-total-orders').innerText = '0 orders';
-                document.getElementById('rev-filtered').innerText = RS + '0';
-                document.getElementById('rev-filter-label').innerText = 'No Data';
-                document.getElementById('rev-avg').innerText = RS + '0';
-                document.getElementById('rev-median').innerText = 'Median: ' + RS + '0';
-                const ge = document.getElementById('rev-growth'); if(ge) ge.innerText = '';
-                ['rev-today','rev-week','rev-month','rev-peak-amount'].forEach(id => {
-                    const el = document.getElementById(id); if(el) el.innerText = RS + '0';
-                });
-                ['rev-today-orders','rev-week-orders','rev-month-orders'].forEach(id => {
-                    const el = document.getElementById(id); if(el) el.innerText = '0 orders';
-                });
-                const ph = document.getElementById('rev-peak-hour'); if(ph) ph.innerText = '--';
+                const setIfExists = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = val; };
+                setIfExists('rev-total', RS + '0');
+                setIfExists('rev-total-orders', '0 orders');
+                setIfExists('rev-filtered', RS + '0');
+                setIfExists('rev-filter-label', 'No Data');
+                setIfExists('rev-avg', RS + '0');
+                setIfExists('rev-median', 'Median: ' + RS + '0');
+                setIfExists('rev-growth', '');
+                ['rev-today','rev-week','rev-month','rev-peak-amount'].forEach(id => setIfExists(id, RS + '0'));
+                ['rev-today-orders','rev-week-orders','rev-month-orders'].forEach(id => setIfExists(id, '0 orders'));
+                setIfExists('rev-peak-hour', '--');
                 return;
             }
             
@@ -5341,7 +5338,6 @@ ordersArr.forEach(order => {
                         </div>`;
                 });
                 container.innerHTML = html;
-                renderPOSMenu();
             });
         };
 
